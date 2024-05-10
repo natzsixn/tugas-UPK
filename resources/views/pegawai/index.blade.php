@@ -4,7 +4,7 @@
         <div class="card-header d-flex justify-content-between">
             <div class="header-title d-flex justify-content-between w-100 align-items-center ">
                 <h4 class="card-title">List Mail</h4>
-                <a href="" type="button" class="btn btn-primary mt-2">
+                <a href="{{route('karyawan.create')}}" type="button" class="btn btn-primary mt-2">
                     <i class="ri-add-line"></i>Create
                 </a>
             </div>

@@ -3,8 +3,9 @@
 @section('content')
     <div class="card">
         <div class="card-header d-flex justify-content-between">
-            <div class="header-title">
+            <div class="header-title w-100 d-flex align-items-center justify-content-between">
                 <h4 class="card-title">Add surat</h4>
+                <a href="{{route('mail.index')}}" class="btn btn-primary">kembali</a>
             </div>
         </div>
         <div class="card-body">
@@ -26,8 +27,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>tanggal*</label>
-                            <input type="date" name="mail_date" value="{{ $mail->mail_date ? date('Y-m-d', strtotime($mail->mail_date)) : '' }}" class="form-control" placeholder="masukan tanggal"
+                            <label>tanggal surat*</label>
+                            <input type="date" name="mail_date" value="{{ $mail->mail_date ? date('Y-m-d', strtotime($mail->mail_date)) : '' }}" class="form-control" placeholder="masukan tanggal surat"
                                 >
                             @error('mail_date')
                                 <div class="help-block with-errors">{{$message}}</div>
@@ -36,8 +37,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>tujuan *</label>
-                            <input type="text" class="form-control" name="mail_to" value="{{$mail->mail_to}}" placeholder="masukan tujuan" >
+                            <label>tujuan surat*</label>
+                            <input type="text" class="form-control" name="mail_to" value="{{$mail->mail_to}}" placeholder="masukan tujuan surat" >
                             @error('mail_to')
                                 <div class="help-block with-errors">{{$message}}</div>
                             @enderror
@@ -45,9 +46,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>dari *</label>
-                            <input type="text" class="form-control" name="mail_from" value="{{$mail->mail_from}}" placeholder="nama pengirim"
-                                >
+                            <label>pengirim surat (berupa instansi atau Perusahaan)*</label>
+                            <input type="text" class="form-control" name="mail_from" value="{{$mail->mail_from}}" placeholder="masukan nama pengirim">
                             @error('mail_from')
                                 <div class="help-block with-errors">{{$message}}</div>
                             @enderror
@@ -71,23 +71,23 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>surat dari *</label>
-                            <input type="text" name="mail_subject" value="{{$mail->mail_subject}}" class="form-control" placeholder="masukan tujuan"
-                                >
-                            @error('mail_subject')
-                                <div class="help-block with-errors">{{$message}}</div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label>Image</label>
+                            <label>file upload</label>
                             <input type="file" class="form-control image-file" name="file_upload" accept="image/*">
                             @error('file_upload')
                             <div class="help-block with-errors">{{$message}}</div>
                             @enderror
                         </div>
                     </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>subjek surat *</label>
+                            <input type="text" name="mail_subject" value="{{$mail->mail_subject}}" class="form-control" placeholder="masukan subject surat">
+                            @error('mail_subject')
+                                <div class="help-block with-errors">{{$message}}</div>
+                            @enderror
+                        </div>
+                    </div>
+
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>deskripsi</label>

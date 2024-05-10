@@ -1,8 +1,7 @@
 <div class="iq-sidebar  sidebar-default ">
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
-        <a href="../backend/index.html" class="header-logo">
-            <img src="../assets/images/logo.png" class="img-fluid rounded-normal light-logo" alt="logo">
-            <h5 class="logo-title light-logo ml-3">POSDash</h5>
+        <a class="header-logo d-flex align-items-center text-nowrap">
+            <h5 class="logo-title light-logo">TGS Surat Masuk</h5>
         </a>
         <div class="iq-menu-bt-sidebar ml-0">
             <i class="las la-bars wrapper-menu"></i>

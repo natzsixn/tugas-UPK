@@ -34,29 +34,34 @@
                                     <div class="col-lg-7 align-self-center">
                                         <div class="p-3">
                                             <h2 class="mb-2">Sign In</h2>
-                                            <p>Login to stay connected.</p>
+                                            <p>Login untuk masuk ke website.</p>
+                                            @error('error')
+                                            <p class="text-danger" role="alert">
+                                                {{$message}}
+                                            </p>
+                                            @enderror
                                             <form method="POST" action="{{ route('login') }}">
                                                 @csrf
                                                 <div class="row">
                                                     <div class="col-lg-12">
                                                         <div class="floating-label form-group">
                                                             <input class="floating-input form-control" type="text"
-                                                                name="username" placeho lder=" ">
+                                                            name="username" placeholder="">
                                                             <label>username</label>
-                                                            @error('username')
-                                                            <div class="help-block with-errors">{{$message}}</div>
-                                                            @enderror
                                                         </div>
+                                                        @error('username')
+                                                        <div class="help-block with-errors">{{$message}}</div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-lg-12">
                                                         <div class="floating-label form-group">
                                                             <input class="floating-input form-control" type="password"
-                                                                name="password" placeholder=" ">
+                                                            name="password" placeholder=" ">
                                                             <label>Password</label>
-                                                            @error('password')
-                                                            <div class="help-block with-errors">{{$message}}</div>
-                                                            @enderror
                                                         </div>
+                                                        @error('password')
+                                                        <div class="help-block with-errors">{{$message}}</div>
+                                                        @enderror
                                                     </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Sign In</button>

@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label>surat kepada *</label>
+                        <label>pengirim surat (berupa instansi atau Perusahaan) *</label>
                         <input type="text" class="form-control" name="mail_from" placeholder="nama pengirim" required>
                         @error('mail_from')
                         <div class="help-block with-errors">{{$message}}</div>

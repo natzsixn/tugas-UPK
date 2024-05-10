@@ -1,8 +1,8 @@
 @extends('layouts.dashboard')
 @section('content')
     <div class="card">
-        <div class="card-header d-flex justify-content-between">
-            <div class="header-title">
+        <div class="card-header">
+            <div class="header-title d-flex align-items-center justify-content-between w-100">
                 <h4 class="card-title">Detail Surat Masuk </h4><a href="{{ route('mail.index') }}" class="btn btn-primary mt-3">Kembali</a>
             </div>
         </div>

@@ -26,6 +26,6 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', [dashController::class , 'index'])->middleware('auth');
-Route::resource('/mail', MailsController::class)->middleware('auth');   
+Route::resource('/mail', MailsController::class)->middleware('auth');
 Route::resource('/disposisi', DisposisiController::class)->middleware('auth');
 Route::resource('/karyawan' , karyawanController::class)->middleware('auth');

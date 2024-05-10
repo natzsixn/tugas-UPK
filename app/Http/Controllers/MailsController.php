@@ -10,7 +10,7 @@ use App\Http\Requests\StoreMailsRequest;
 use App\Http\Requests\UpdateMailsRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Gate;
 class MailsController extends Controller
 {
     /**
@@ -18,18 +18,18 @@ class MailsController extends Controller
      */
     public function index(Request $request)
     {
-        $user = $request->user();
+            $user = $request->user();
 
-        // Cek apakah user memiliki akses sebagai admin atau pembuat surat
-        if ($user->level === 'admin') {
-            // Jika admin, tampilkan semua surat
-            $mails = Mails::all();
-        } else {
-            // Jika bukan admin, tampilkan surat yang ditujukan ke user tersebut
-            $mails = Mails::where('mail_to', $user->username)->orWhere('mail_from', $user->username)->get();
-        }
+            // Cek apakah user memiliki akses sebagai admin atau pembuat surat
+            if ($user->level === 'admin') {
+                // Jika admin, tampilkan semua surat
+                $mails = Mails::all();
+            } else {
+                // Jika bukan admin, tampilkan surat yang ditujukan ke user tersebut
+                $mails = Mails::where('mail_to', $user->username)->orWhere('mail_from', $user->username)->get();
+            }
 
-        return view('suratmasuk.index', compact('mails'));
+            return view('suratmasuk.index', compact('mails'));
     }
 
 
@@ -193,5 +193,8 @@ class MailsController extends Controller
 
         // Redirect kembali ke halaman index dengan pesan sukses
         return redirect()->route('mail.index')->with('status', 'Mail data has been deleted successfully.');
+    }
+    function get(){
+
     }
 }

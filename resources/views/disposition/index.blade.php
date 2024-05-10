@@ -16,10 +16,9 @@
                     <tr class="ligth">
                         <th>No</th>
                         <th>pembuat</th>
-                        <th>tengat waktu</th>
-                        <th>notifikasi</th>
-                        <th>mail</th>
-                        <th>kepada</th>
+                        <th>tanggal dibalas</th>
+                        <th>deskripsi</th>
+                        <th>tipe surat</th>
                         <th>status</th>
                         <th>subjek</th>
                         <th>tipe surat</th>

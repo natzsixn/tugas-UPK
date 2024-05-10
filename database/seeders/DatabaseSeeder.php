@@ -37,9 +37,9 @@ class DatabaseSeeder extends Seeder
         ]);
         User::create([
             'username' => 'layla',
-            'password' => bcrypt('bagiantu'),
-            'fullname' => 'layla',
-            'level' => 'TU'
+            'password' => bcrypt('user2'),
+            'fullname' => 'layla b',
+            'level' => 'user'
         ]);
 
         // mail type

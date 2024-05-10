@@ -3,8 +3,9 @@
 @section('content')
 <div class="card">
     <div class="card-header d-flex justify-content-between">
-        <div class="header-title">
+        <div class="header-title d-flex align-items-center justify-content-between w-100">
             <h4 class="card-title">buat user karyawan</h4>
+            <a href="{{route('karyawan.index')}}" class="btn btn-info">Back</a>
         </div>
     </div>
     <div class="card-body">

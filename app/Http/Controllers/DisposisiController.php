@@ -7,7 +7,7 @@ use App\Models\MailType;
 use App\Http\Requests\StoredisposisiRequest;
 use App\Http\Requests\UpdatedisposisiRequest;
 use Illuminate\Http\Request;
-
+use App\Notifications\DispositionNotification;
 class DisposisiController extends Controller
 {
     /**
@@ -64,13 +64,14 @@ class DisposisiController extends Controller
             'user_id' => 'required|exists:users,id',
             'mail_id' => 'required|exists:mails,id',
             'status' => 'required|in:diverifikasi,menunggu verifikasi',
-        ],
-        [
-
-            'reply_at.required' => 'reply harus di isi',
-            'description.description' => 'deskripsi harus di isi',
-            'ref_type_id.required' => 'tipe surat harus di isi dengan data yang valid',
-            'mail_id.required' => 'mail harus di isi',
+        ], [
+            'reply_at.required' => 'Kolom reply harus diisi.',
+            'description.required' => 'Kolom description harus diisi.',
+            'notification.required' => 'Kolom notification harus diisi.',
+            'ref_type_id.required' => 'Kolom ref_type_id harus diisi dengan data yang valid.',
+            'mail_id.required' => 'Kolom mail_id harus diisi.',
+            'status.required' => 'Kolom status harus diisi.',
+            'status.in' => 'Status hanya boleh diverifikasi atau menunggu verifikasi.',
         ]);
 
         // Cek apakah user yang ingin diberi disposisi memiliki akses ke surat yang dimaksud
@@ -93,7 +94,8 @@ class DisposisiController extends Controller
         $disposition->status = 'menunggu verifikasi';
         $disposition->save();
 
-        return redirect()->route('disposition.index')->with('massage', 'disposisi berhasil di tambahkan');
+        // Kirim notifikasi ke user yang diberi disposisi
+        return redirect()->route('disposition.index')->with('message', 'Disposisi berhasil ditambahkan.');
     }
 
     public function confirmDisposition(Request $request, $id)
@@ -124,7 +126,7 @@ class DisposisiController extends Controller
      */
     public function edit(disposisi $disposisi)
     {
-        //
+
     }
 
     /**
