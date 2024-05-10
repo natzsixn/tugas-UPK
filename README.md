@@ -53,7 +53,7 @@ berikut adalah tabel dan isi seeder yang ada di database **test**
 #### Tables Users
 
 | id | Username | Password | Fullname |Level | 
-| :-------- | :------- | | :------- | | :------- | :------- |
+| :-------- | :------- |  :-------  | :------- | :------- |
 | `1` | `Natanael` | admin | Natanael Ben Iriyanto | admin |
 | `2` | `Chika` | user1 | chika | user |
 | `3` | `layla` | user | layla | user |
