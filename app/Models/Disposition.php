@@ -9,17 +9,19 @@ class Disposition extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['disposition_at', 'reply_at', 'description', 'notification', 'ref_type_id', 'mail_id', 'user_id', 'status'];
+    protected $fillable = [
+        'disposition_at',
+        'reply_at',
+        'description',
+        'mail_id',
+        'user_id',
+        'notification',
+        'status'
+    ];
     // Relasi dengan tabel 'users'
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    // Relasi dengan tabel 'mail_types'
-    public function mailType()
-    {
-        return $this->belongsTo(MailType::class, 'ref_type_id');
     }
 
     // Relasi dengan tabel 'mails'

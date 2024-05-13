@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\Disposition;
 use App\Models\MailType;
+use App\Models\Mails;
+use App\Models\User;
+
 use App\Http\Requests\StoredisposisiRequest;
 use App\Http\Requests\UpdatedisposisiRequest;
+
 use Illuminate\Http\Request;
-use App\Notifications\DispositionNotification;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Validator;
 class DisposisiController extends Controller
 {
     /**
@@ -20,12 +26,13 @@ class DisposisiController extends Controller
         // Cek apakah user memiliki akses sebagai admin atau tidak
         if ($user->level === 'admin') {
             // Jika admin, tampilkan semua surat
+
             $dis = Disposition::all();
         } else {
             // Jika bukan admin, tampilkan surat yang ditujukan ke user tersebut
             $dis = Disposition::where('user_id', $user->username)->get();
         }
-        return view('disposition.index', compact('dis'));
+        return view('disposition.index', compact('dis'  ));
     }
 
     /**
@@ -33,20 +40,7 @@ class DisposisiController extends Controller
      */
     public function create()
     {
-        $ds = Disposition::select('status')->get();
-        $mailtype = MailType::all();
-        $query = Disposition::query();
 
-        if (request()->filled('ref_type_id')) {
-            $query->whereHas('mail', function ($query) {
-                $query->where('ref_type_id', request('ref_type_id'));
-            });
-        } else {
-            $query->with('mail'); // Memuat relasi mail jika ref_type_id tidak ada
-        }
-
-        $mails = $query->get();
-        return view('disposition.add', compact('ds', 'mails', 'mailtype'));
     }
 
     /**
@@ -54,65 +48,9 @@ class DisposisiController extends Controller
      */
     public function store(Request $request)
     {
-        // Validasi input
-        $request->validate([
-            'disposition_at' => 'required|date',
-            'reply_at' => 'required',
-            'description' => 'required',
-            'notification' => 'required',
-            'ref_type_id' => 'required|exists:mail_types,id',
-            'user_id' => 'required|exists:users,id',
-            'mail_id' => 'required|exists:mails,id',
-            'status' => 'required|in:diverifikasi,menunggu verifikasi',
-        ], [
-            'reply_at.required' => 'Kolom reply harus diisi.',
-            'description.required' => 'Kolom description harus diisi.',
-            'notification.required' => 'Kolom notification harus diisi.',
-            'ref_type_id.required' => 'Kolom ref_type_id harus diisi dengan data yang valid.',
-            'mail_id.required' => 'Kolom mail_id harus diisi.',
-            'status.required' => 'Kolom status harus diisi.',
-            'status.in' => 'Status hanya boleh diverifikasi atau menunggu verifikasi.',
-        ]);
 
-        // Cek apakah user yang ingin diberi disposisi memiliki akses ke surat yang dimaksud
-        $mail = Mail::findOrFail($request->mail_id);
-        $recipient = User::findOrFail($request->user_id);
-
-        if ($mail->recipient_id !== $recipient->id) {
-            return response()->json(['error' => 'User yang dimaksud tidak memiliki akses ke surat ini.'], 403);
-        }
-
-        // Buat disposisi baru
-        $disposition = new Disposition();
-        $disposition->disposition_at = now();
-        $disposition->reply_at = $request->reply_at;
-        $disposition->description = $request->description;
-        $disposition->notification = $request->notification;
-        $disposition->ref_type_id = $request->ref_type_id;
-        $disposition->user_id = auth()->id();
-        $disposition->mail_id = $request->mail_id;
-        $disposition->status = 'menunggu verifikasi';
-        $disposition->save();
-
-        // Kirim notifikasi ke user yang diberi disposisi
-        return redirect()->route('disposition.index')->with('message', 'Disposisi berhasil ditambahkan.');
     }
 
-    public function confirmDisposition(Request $request, $id)
-    {
-        // Cek apakah disposisi ada dan milik user yang ingin mengonfirmasi
-        $disposition = Disposition::findOrFail($id);
-
-        if ($disposition->user_id !== auth()->id()) {
-            return response()->json(['error' => 'Anda tidak memiliki izin untuk mengonfirmasi disposisi ini.'], 403);
-        }
-
-        // Lakukan konfirmasi disposisi
-        $disposition->status = 'diverifikasi'; // Ubah status menjadi diverifikasi
-        $disposition->save();
-
-        return response()->json(['message' => 'Disposisi berhasil diverifikasi.']);
-    }
     /**
      * Display the specified resource.
      */
@@ -124,18 +62,27 @@ class DisposisiController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(disposisi $disposisi)
+    public function edit($id)
     {
-
+        $disposition = Disposition::findOrFail($id);
+        return view('disposition.edit', compact('disposition'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdatedisposisiRequest $request, disposisi $disposisi)
+    public function update(UpdatedisposisiRequest $request, $id)
     {
-        //
+        $disposition = Disposition::findOrFail($id);
+        $disposition->update([
+            'disposition_at' => now()->format('Y-m-d'), // Update ke format tahun-bulan-tanggal
+            'reply_at' => now()->format('Y-m-d'), // Update ke format tahun-bulan-tanggal
+            'status' => 'confirm'
+        ]);
+
+        return redirect()->route('disposisi.index')->with('success', 'Disposition updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Mails;
 use App\Models\User;
 use App\Models\MailType;
@@ -47,7 +48,7 @@ class MailsController extends Controller
      */
     public function store(Request $request)
     {
-        // try {
+
             $request->validate([
                 'mail_code' => 'required',
                 'mail_to' => 'required',
@@ -72,13 +73,6 @@ class MailsController extends Controller
                 'file_upload.max' => 'file tidak boleh lebih 10mb',
             ]
             );
-
-            // // Cek apakah user penerima (mail_to) ada
-            // $recipient = User::where('username', $request->mail_to)->first();
-            // if (!$recipient) {
-            //     return redirect()->back()->withInput()->with('error_message', 'User penerima tidak ditemukan');
-            // }
-
             $mail = new Mails();
             $mail->mail_code = $request->mail_code;
             $mail->mail_date = $request->mail_date;
@@ -99,10 +93,19 @@ class MailsController extends Controller
             }
 
             $mail->save();
+
+            // disposisi
+            $dispo = new Disposition();
+            $dispo->disposition_at = Carbon::now()->format('Y-m-d');
+            $dispo->reply_at = Carbon::now()->format('Y-m-d'); // Sesuaikan dengan kebutuhan Anda
+            $dispo->description = $request->description;
+            $dispo->user_id = Auth::id();
+            $dispo->status = 'pending';
+            $dispo->mail_id = $mail->id; // Ambil ID surat yang baru saja dibuat
+            $dispo->notification = 'Anda mendapat notifikasi: ' . $request->mail_subject;
+            $dispo->save();
+
             return redirect()->route('mail.index')->with('status', 'Form Data berhasil ditambahkan');
-        // } catch (\Exception $e) {
-        //     return redirect()->back()->withInput()->with('error_message', 'Terjadi kesalahan saat menambahkan data: ' . $e->getMessage());
-        // }
     }
 
     /**
@@ -121,14 +124,13 @@ class MailsController extends Controller
     {
         $mailtype = MailType::all();
         $mail = Mails::findOrFail($id);
-        return view('suratmasuk.update', compact(['mailtype', 'mail']));
-
+        return view('suratmasuk.update', compact('mailtype', 'mail'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMailsRequest $request, Mails $mails)
+    public function update(UpdateMailsRequest $request, Mails $mails, $id)
     {
         $request->validate([
             'mail_code' => 'required',
@@ -153,6 +155,7 @@ class MailsController extends Controller
             'file_upload.max' => 'file tidak boleh lebih 10mb',
         ]);
 
+        $mail = Mails::findOrFail($id);
         // Update data surat
         $mail->update([
             'mail_code' => $request->mail_code,
@@ -173,6 +176,15 @@ class MailsController extends Controller
             $mail->save();
         }
 
+        $dispo = Disposition::where('mail_id', $id)->first();
+
+        if ($dispo) {
+            $dispo->update([
+                'description' => $request->description,
+                'notification' => 'anda mendapat notifikasi' . $request->mail_subject,
+            ]);
+        }
+
         return redirect()->route('mail.index')->with('status', 'Form Data berhasil di update');
     }
 
@@ -182,19 +194,21 @@ class MailsController extends Controller
     public function destroy($id)
     {
         $mail = Mails::findOrFail($id);
+        $dispositions = Disposition::where('mail_id', $id)->get();
 
         // Hapus file terkait jika ada
-        if ($mail->file_path) {
-            Storage::disk('public')->delete($mail->file_upload);
+        if ($mail->file_path) {Storage::disk('public')->delete($mail->file_upload);
         }
 
-        // Hapus data mail dari database
+        // Hapus disposisi terkait
+        foreach ($dispositions as $dispo) {
+            $dispo->delete();
+        }
+
+        // Hapus data surat dari database
         $mail->delete();
 
         // Redirect kembali ke halaman index dengan pesan sukses
         return redirect()->route('mail.index')->with('status', 'Mail data has been deleted successfully.');
-    }
-    function get(){
-
     }
 }

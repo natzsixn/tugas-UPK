@@ -7,12 +7,12 @@
     <title>Kelompok satu</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="{{asset('assets/images/favicon.ico')}}" />
-    <link rel="stylesheet" href="{{asset('assets/css/backend-plugin.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/css/backend.css?v=1.0.0')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('assets/vendor/remixicon/fonts/remixicon.css')}}">
+    <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/backend-plugin.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/backend.css?v=1.0.0') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/remixicon/fonts/remixicon.css') }}">
 </head>
 
 <body class=" color-light ">
@@ -30,9 +30,9 @@
         <div class="content-page">
             <div class="container-fluid add-form-list">
                 @if (session('status'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    <div class="iq-alert-text">{{ session('status') }}</div>
-                </div>
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <div class="iq-alert-text">{{ session('status') }}</div>
+                    </div>
                 @endif
                 <div class="row">
                     <div class="col-sm-12">
@@ -44,20 +44,21 @@
     </div>
     <!-- Wrapper End-->
     @include('components.footer')
-        <!-- Backend Bundle JavaScript -->
-        <script src="{{asset('assets/js/backend-bundle.min.js')}}"></script>
+    <script src="{{ asset('assets/js/jquery-3.7.1.js') }}"></script>
+    <!-- Backend Bundle JavaScript -->
+    <script src="{{ asset('assets/js/backend-bundle.min.js') }}"></script>
 
-        <!-- Table Treeview JavaScript -->
-        <script src="{{asset('assets/js/table-treeview.js')}}"></script>
+    <!-- Table Treeview JavaScript -->
+    <script src="{{ asset('assets/js/table-treeview.js') }}"></script>
 
-        <!-- Chart Custom JavaScript -->
-        <script src="{{asset('assets/js/customizer.js')}}"></script>
+    <!-- Chart Custom JavaScript -->
+    <script src="{{ asset('assets/js/customizer.js') }}"></script>
 
-        <!-- Chart Custom JavaScript -->
-        <script async src="{{asset('assets/js/chart-custom.js')}}"></script>
+    <!-- Chart Custom JavaScript -->
+    <script async src="{{ asset('assets/js/chart-custom.js') }}"></script>
 
-        <!-- app JavaScript -->
-        <script src="{{asset('assets/js/app.js')}}"></script>
+    <!-- app JavaScript -->
+    <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 
 </html>

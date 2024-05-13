@@ -43,7 +43,7 @@
                                                 data-toggle="tooltip" data-placement="top" title=""
                                                 data-original-title="Edit" href="{{ route('mail.edit', $hehemail) }}"><i
                                                     class="ri-pencil-line mr-0"></i></a>
-                                            <form action="{{ route('mail.destroy', $hehemail->id) }}" method="POST"
+                                            <form action="{{ route('mail.destroy', $hehemail->id ) }}" method="POST"
                                                 class="d-flex align-items-center">
                                                 @csrf
                                                 @method('DELETE')

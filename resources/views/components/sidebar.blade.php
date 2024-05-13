@@ -42,7 +42,7 @@
                     </a>
                 </li>
                 @endcan
-                <li class=" ">
+                <li class="">
                     <a href="{{route('mail.index')}}">
                         <svg class="svg-icon" id="p-dash7" width="20" height="20"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"

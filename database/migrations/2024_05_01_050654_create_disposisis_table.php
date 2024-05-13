@@ -17,10 +17,9 @@ return new class extends Migration
                 $table->date('reply_at');
                 $table->text('description');
                 $table->string('notification');
-                $table->foreignId('ref_type_id')->constrained('mail_types');
                 $table->foreignId('user_id')->constrained('users');
                 $table->foreignId('mail_id')->constrained('mails');
-                $table->enum('status', ['diverifikasi', 'menunggu verifikasi']) -> default('menunggu verifikasi');
+                $table->enum('status', ['pending', 'confirm']) -> default('pending');
                 $table->timestamps();
             });
     }
