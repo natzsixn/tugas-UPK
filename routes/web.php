@@ -6,6 +6,7 @@ use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\dashController;
 use App\Http\Controllers\karyawanController;
+use App\Http\Controllers\postsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,8 +19,8 @@ use App\Http\Controllers\karyawanController;
 */
 
 // Route::get('/', function () {
-//     return view('welcome');
-// });
+    //     return view('welcome');
+    // });
 
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
@@ -27,7 +28,5 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', [dashController::class , 'index'])->middleware('auth');
 Route::resource('/mail', MailsController::class)->middleware('auth');
-
 Route::resource('/disposisi', DisposisiController::class)->middleware('auth');
-
 Route::resource('/karyawan' , karyawanController::class)->middleware('auth');

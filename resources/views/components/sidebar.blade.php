@@ -1,17 +1,17 @@
-<div class="iq-sidebar  sidebar-default ">
-    <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
-        <a class="header-logo d-flex align-items-center text-nowrap">
-            <h5 class="logo-title light-logo">TGS Surat Masuk</h5>
+<div class="iq-sidebar  sidebar-default bg-dark">
+    <div class="iq-sidebar-logo d-flex align-items-center justify-content-between w-100">
+        <a class="header-logo d-flex align-items-center text-nowrap justify-content-center">
+            <h5 class="logo-title light-logo">TGS Surat</h5>
         </a>
-        <div class="iq-menu-bt-sidebar ml-0">
-            <i class="las la-bars wrapper-menu"></i>
+        <div class="iq-menu-bt-sidebar position-relative">
+            <i class="las la-bars text-white wrapper-menu ml-3"></i>
         </div>
     </div>
     <div class="data-scrollbar" data-scroll="1">
         <nav class="iq-sidebar-menu">
             <ul id="iq-sidebar-toggle" class="iq-menu">
                 <li class="">
-                    <a href="" class="svg-icon">
+                    <a href="{{url('/')}}" class="svg-icon">
                         <svg class="svg-icon" id="p-dash1" width="20" height="20"
                             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
                             stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -27,7 +27,7 @@
                 </li>
                 @can('admin')
 
-                <li class=" ">
+                <li class="">
                     <a href="{{route('karyawan.index')}}" >
                         <svg class="svg-icon" id="p-dash8" width="20" height="20"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
@@ -54,7 +54,7 @@
                             <line x1="16" y1="17" x2="8" y2="17"></line>
                             <polyline points="10 9 9 9 8 9"></polyline>
                         </svg>
-                        <span class="ml-4">surat masuk</span>
+                        <span class="ml-4 ">surat masuk</span>
                     </a>
                 </li>
                 <li class="">

@@ -7126,7 +7126,7 @@ a.text-light-gray:hover, a.text-light-gray:focus {
         font-size: 16px;
         white-space: nowrap;
         display: block;
-        color: #676E8A;
+        color: #878787;
         position: relative;
         padding: 15px 20px 15px 20px;
         margin-bottom: 5px;
@@ -7214,7 +7214,7 @@ a.text-light-gray:hover, a.text-light-gray:focus {
   border-radius: unset; }
 
 .sidebar-default .iq-sidebar-menu .iq-menu li a:hover {
-  color: #01041b; }
+  color: #EBEBEB; }
   .sidebar-default .iq-sidebar-menu .iq-menu li a:hover svg {
     color: #FF7E41; }
 
@@ -7254,7 +7254,7 @@ a.text-light-gray:hover, a.text-light-gray:focus {
     color: #FF7E41; }
 
 .sidebar-default .iq-sidebar-menu .iq-menu li.active .iq-submenu li.active > a {
-  color: #01041b;
+  color: #EBEBEB;
   border-radius: 0; }
   .sidebar-default .iq-sidebar-menu .iq-menu li.active .iq-submenu li.active > a svg {
     color: #FF7E41; }
